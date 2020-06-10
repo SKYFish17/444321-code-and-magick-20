@@ -1,6 +1,6 @@
 'use strict';
 
-var NUM_OF_SIMILAR_WIZARDS = 4;
+var WIZARDS_MUMBER = 4;
 
 var wizardsNames = [
   'Иван',
@@ -65,7 +65,7 @@ var getRandomValue = function (arr) {
 };
 
 var combineWizardsData = function () {
-  for (var i = 0; i < NUM_OF_SIMILAR_WIZARDS; i++) {
+  for (var i = 0; i < WIZARDS_MUMBER; i++) {
     wizardsFullData[i] = {};
     wizardsFullData[i].name = getFullName(wizardsNames, wizardsSurnames);
     wizardsFullData[i].coatColor = getRandomValue(wizardsCoatsColors);
