@@ -1,5 +1,7 @@
 'use strict';
 
+var NUM_OF_SIMILAR_WIZARDS = 4;
+
 var wizardsNames = [
   'Иван',
   'Хуан',
@@ -62,12 +64,12 @@ var getRandomValue = function (arr) {
   return arr[getRandomNumber(0, arr.length - 1)];
 };
 
-var combineWizardsData = function (names, surnames, coatsColors, eyesColors) {
-  for (var i = 0; i < 4; i++) {
+var combineWizardsData = function () {
+  for (var i = 0; i < NUM_OF_SIMILAR_WIZARDS; i++) {
     wizardsFullData[i] = {};
-    wizardsFullData[i].name = getFullName(names, surnames);
-    wizardsFullData[i].coatColor = getRandomValue(coatsColors);
-    wizardsFullData[i].eyesColor = getRandomValue(eyesColors);
+    wizardsFullData[i].name = getFullName(wizardsNames, wizardsSurnames);
+    wizardsFullData[i].coatColor = getRandomValue(wizardsCoatsColors);
+    wizardsFullData[i].eyesColor = getRandomValue(wizardsEyesColors);
   }
 };
 
@@ -94,7 +96,7 @@ var createWizardsList = function () {
   setupSimilarList.appendChild(fragment);
 };
 
-combineWizardsData(wizardsNames, wizardsSurnames, wizardsCoatsColors, wizardsEyesColors);
+combineWizardsData();
 createWizardsList();
 setupSimilar.classList.remove('hidden');
 setupWindow.classList.remove('hidden');
