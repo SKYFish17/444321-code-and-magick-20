@@ -99,4 +99,66 @@ var createWizardsList = function () {
 combineWizardsData();
 createWizardsList();
 setupSimilar.classList.remove('hidden');
-setupWindow.classList.remove('hidden');
+
+//  новый код - задание 4
+var setupOpenBtn = document.querySelector('.setup-open');
+var setupCloseBtn = setupWindow.querySelector('.setup-close');
+var setupUserName = setupWindow.querySelector('.setup-user-name');
+var isSetupUserNameFocus = false;
+
+var setUserNameFocusIn = function () {
+  isSetupUserNameFocus = true;
+};
+
+var setUserNameFocusOut = function () {
+  isSetupUserNameFocus = false;
+};
+
+var setUserNameFocusStatus = function () {
+  setupUserName.addEventListener('focusin', setUserNameFocusIn);
+  setupUserName.addEventListener('focusout', setUserNameFocusOut);
+};
+
+var unsetUserNameFocusStatus = function () {
+  setupUserName.removeEventListener('focusin', setUserNameFocusIn);
+  setupUserName.removeEventListener('focusout', setUserNameFocusOut);
+};
+
+var onSetupEscPress = function (evt) {
+  if (evt.code === 'Escape' && !isSetupUserNameFocus) {
+    evt.preventDefault();
+    closeSetup();
+  }
+};
+
+var openSetup = function () {
+  setupWindow.classList.remove('hidden');
+  setUserNameFocusStatus();
+  document.addEventListener('keydown', onSetupEscPress);
+};
+
+var closeSetup = function () {
+  setupWindow.classList.add('hidden');
+  document.removeEventListener('keydown', onSetupEscPress);
+  unsetUserNameFocusStatus();
+};
+
+setupOpenBtn.addEventListener('click', function () {
+  openSetup();
+});
+
+setupOpenBtn.addEventListener('keydown', function (evt) {
+  if (evt.code === 'Enter') {
+    openSetup();
+  }
+});
+
+setupCloseBtn.addEventListener('click', function () {
+  closeSetup();
+});
+
+setupCloseBtn.addEventListener('keydown', function (evt) {
+  if (evt.code === 'Enter') {
+    closeSetup();
+  }
+});
