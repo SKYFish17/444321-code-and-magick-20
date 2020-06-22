@@ -42,6 +42,14 @@ var wizardsEyesColors = [
   'green'
 ];
 
+var wizardFireballColors = [
+  '#ee4830',
+  '#30a8ee',
+  '#5ce6c0',
+  '#e848d5',
+  '#e6e848'
+];
+
 var wizardsFullData = [];
 
 var setupWindow = document.querySelector('.setup');
@@ -99,4 +107,106 @@ var createWizardsList = function () {
 combineWizardsData();
 createWizardsList();
 setupSimilar.classList.remove('hidden');
-setupWindow.classList.remove('hidden');
+
+var setupOpenBtn = document.querySelector('.setup-open');
+var setupCloseBtn = setupWindow.querySelector('.setup-close');
+var setupUserName = setupWindow.querySelector('.setup-user-name');
+var isSetupUserNameFocus = false;
+
+var wizardCoat = setupWindow.querySelector('.wizard-coat');
+var inputCoatColor = setupWindow.querySelector('input[name="coat-color"]');
+
+var wizardEyes = setupWindow.querySelector('.wizard-eyes');
+var inputEyesColor = setupWindow.querySelector('input[name="eyes-color"]');
+
+var fireball = setupWindow.querySelector('.setup-fireball-wrap');
+var inputFireballColor = setupWindow.querySelector('input[name="fireball-color"]');
+
+var onUserNameFocusIn = function () {
+  isSetupUserNameFocus = true;
+};
+
+var onUserNameFocusOut = function () {
+  isSetupUserNameFocus = false;
+};
+
+var setUserNameFocusStatus = function () {
+  setupUserName.addEventListener('focusin', onUserNameFocusIn);
+  setupUserName.addEventListener('focusout', onUserNameFocusOut);
+};
+
+var unsetUserNameFocusStatus = function () {
+  setupUserName.removeEventListener('focusin', onUserNameFocusIn);
+  setupUserName.removeEventListener('focusout', onUserNameFocusOut);
+};
+
+var onSetupEscPress = function (evt) {
+  if (evt.code === 'Escape' && !isSetupUserNameFocus) {
+    evt.preventDefault();
+    closeSetup();
+  }
+};
+
+var changeWizardElementColor = function (element, input, elementColors) {
+  var randomColor = getRandomValue(elementColors);
+
+  switch (element.tagName) {
+    case 'use':
+      element.style.fill = randomColor;
+      break;
+    case 'DIV':
+      element.style.backgroundColor = randomColor;
+      break;
+  }
+  input.value = randomColor;
+};
+
+var onWizardCoatClick = function () {
+  changeWizardElementColor(wizardCoat, inputCoatColor, wizardsCoatsColors);
+};
+
+var onWizardEyesClick = function () {
+  changeWizardElementColor(wizardEyes, inputEyesColor, wizardsEyesColors);
+};
+
+var onFireballClick = function () {
+  changeWizardElementColor(fireball, inputFireballColor, wizardFireballColors);
+};
+
+var openSetup = function () {
+  setupWindow.classList.remove('hidden');
+  setUserNameFocusStatus();
+  document.addEventListener('keydown', onSetupEscPress);
+  wizardCoat.addEventListener('click', onWizardCoatClick);
+  wizardEyes.addEventListener('click', onWizardEyesClick);
+  fireball.addEventListener('click', onFireballClick);
+};
+
+var closeSetup = function () {
+  setupWindow.classList.add('hidden');
+  document.removeEventListener('keydown', onSetupEscPress);
+  unsetUserNameFocusStatus();
+  wizardCoat.removeEventListener('click', onWizardCoatClick);
+  wizardEyes.removeEventListener('click', onWizardEyesClick);
+  fireball.removeEventListener('click', onFireballClick);
+};
+
+setupOpenBtn.addEventListener('click', function () {
+  openSetup();
+});
+
+setupOpenBtn.addEventListener('keydown', function (evt) {
+  if (evt.code === 'Enter') {
+    openSetup();
+  }
+});
+
+setupCloseBtn.addEventListener('click', function () {
+  closeSetup();
+});
+
+setupCloseBtn.addEventListener('keydown', function (evt) {
+  if (evt.code === 'Enter') {
+    closeSetup();
+  }
+});
