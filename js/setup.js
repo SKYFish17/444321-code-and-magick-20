@@ -111,7 +111,6 @@ setupSimilar.classList.remove('hidden');
 var setupOpenBtn = document.querySelector('.setup-open');
 var setupCloseBtn = setupWindow.querySelector('.setup-close');
 var setupUserName = setupWindow.querySelector('.setup-user-name');
-var isSetupUserNameFocus = false;
 
 var wizardCoat = setupWindow.querySelector('.wizard-coat');
 var inputCoatColor = setupWindow.querySelector('input[name="coat-color"]');
@@ -122,27 +121,8 @@ var inputEyesColor = setupWindow.querySelector('input[name="eyes-color"]');
 var fireball = setupWindow.querySelector('.setup-fireball-wrap');
 var inputFireballColor = setupWindow.querySelector('input[name="fireball-color"]');
 
-var onUserNameFocusIn = function () {
-  isSetupUserNameFocus = true;
-};
-
-var onUserNameFocusOut = function () {
-  isSetupUserNameFocus = false;
-};
-
-var setUserNameFocusStatus = function () {
-  setupUserName.addEventListener('focusin', onUserNameFocusIn);
-  setupUserName.addEventListener('focusout', onUserNameFocusOut);
-};
-
-var unsetUserNameFocusStatus = function () {
-  setupUserName.removeEventListener('focusin', onUserNameFocusIn);
-  setupUserName.removeEventListener('focusout', onUserNameFocusOut);
-};
-
 var onSetupEscPress = function (evt) {
-  if (evt.code === 'Escape' && !isSetupUserNameFocus) {
-    evt.preventDefault();
+  if (evt.code === 'Escape' && evt.target !== setupUserName) {
     closeSetup();
   }
 };
@@ -175,7 +155,6 @@ var onFireballClick = function () {
 
 var openSetup = function () {
   setupWindow.classList.remove('hidden');
-  setUserNameFocusStatus();
   document.addEventListener('keydown', onSetupEscPress);
   wizardCoat.addEventListener('click', onWizardCoatClick);
   wizardEyes.addEventListener('click', onWizardEyesClick);
@@ -185,7 +164,6 @@ var openSetup = function () {
 var closeSetup = function () {
   setupWindow.classList.add('hidden');
   document.removeEventListener('keydown', onSetupEscPress);
-  unsetUserNameFocusStatus();
   wizardCoat.removeEventListener('click', onWizardCoatClick);
   wizardEyes.removeEventListener('click', onWizardEyesClick);
   fireball.removeEventListener('click', onFireballClick);
