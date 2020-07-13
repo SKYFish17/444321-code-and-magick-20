@@ -16,10 +16,22 @@
     return arr[getRandomNumber(0, arr.length - 1)];
   };
 
+  var getMaxElement = function (arr) {
+    var maxElement = arr[0];
+
+    for (var j = 0; j < arr.length; j++) {
+      if (arr[j] > maxElement) {
+        maxElement = arr[j];
+      }
+    }
+    return maxElement;
+  };
+
   window.util = {
     getRandomNumber: getRandomNumber,
     getFullName: getFullName,
-    getRandomValue: getRandomValue
+    getRandomValue: getRandomValue,
+    getMaxElement: getMaxElement
   };
 
 })();
