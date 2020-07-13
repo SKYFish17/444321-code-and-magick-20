@@ -1,11 +1,6 @@
 'use strict';
 
 (function () {
-  var setupWindow = document.querySelector('.setup');
-  var setupSimilar = setupWindow.querySelector('.setup-similar');
-  var setupSimilarList = setupSimilar.querySelector('.setup-similar-list');
-  var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('div');
-
   var WIZARDS_NUMBER = 4;
 
   var wizardsNames = [
@@ -58,6 +53,11 @@
 
   var wizardsFullData = [];
 
+  var setupWindow = document.querySelector('.setup');
+  var setupSimilar = setupWindow.querySelector('.setup-similar');
+  var setupSimilarList = setupSimilar.querySelector('.setup-similar-list');
+  var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('div');
+
   // генерация массива с данными персонажей
   var generateWizardsData = function () {
     for (var i = 0; i < WIZARDS_NUMBER; i++) {
@@ -67,8 +67,6 @@
       wizardsFullData[i].eyesColor = window.util.getRandomValue(wizardsEyesColors);
     }
   };
-
-  generateWizardsData();
 
   //  создаёт нового персонажа
   var createWizardItem = function (index) {
@@ -94,6 +92,8 @@
     }
     setupSimilarList.appendChild(fragment);
   };
+
+  generateWizardsData();
 
   window.data = {
     createWizardsList: createWizardsList,
