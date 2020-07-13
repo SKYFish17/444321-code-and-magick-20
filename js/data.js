@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var setupWindow = document.querySelector('.setup');
+  var setupSimilar = setupWindow.querySelector('.setup-similar');
+  var setupSimilarList = setupSimilar.querySelector('.setup-similar-list');
+  var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('div');
+
   var WIZARDS_MUMBER = 4;
 
   var wizardsNames = [
@@ -53,6 +58,7 @@
 
   var wizardsFullData = [];
 
+  // генерация массива с данными персонажей
   var generateWizardsData = function () {
     for (var i = 0; i < WIZARDS_MUMBER; i++) {
       wizardsFullData[i] = {};
@@ -62,9 +68,33 @@
     }
   };
 
+  //  создаёт нового персонажа
+  var createWizardItem = function (index) {
+    var newWizard = similarWizardTemplate.cloneNode(true);
+    var newWizardName = newWizard.querySelector('.setup-similar-label');
+    var newWizardAppearance = newWizard.querySelector('.setup-similar-wizard');
+    var newWizardCoat = newWizardAppearance.querySelector('.wizard-coat');
+    var newWizardEyes = newWizardAppearance.querySelector('.wizard-eyes');
+
+    newWizardName.textContent = wizardsFullData[index].name;
+    newWizardCoat.style.fill = wizardsFullData[index].coatColor;
+    newWizardEyes.style.fill = wizardsFullData[index].eyesColor;
+
+    return newWizard;
+  };
+
+  //  создаёт список похожих персонажей и вставляет в разметку
+  var createWizardsList = function () {
+    var fragment = document.createDocumentFragment();
+
+    for (var i = 0; i < wizardsFullData.length; i++) {
+      fragment.appendChild(createWizardItem(i));
+    }
+    setupSimilarList.appendChild(fragment);
+  };
+
   window.data = {
-    generateWizardsData: generateWizardsData,
-    wizardsData: wizardsFullData,
+    createWizardsList: createWizardsList,
     wizardsCoatsColors: wizardsCoatsColors,
     wizardsEyesColors: wizardsEyesColors,
     wizardFireballColors: wizardFireballColors
