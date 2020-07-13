@@ -57,27 +57,12 @@ var setupSimilar = setupWindow.querySelector('.setup-similar');
 var setupSimilarList = setupSimilar.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('div');
 
-var getRandomNumber = function (min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-var getFullName = function (names, surnames) {
-  var fullName = names[getRandomNumber(0, names.length - 1)] + ' ' + surnames[getRandomNumber(0, surnames.length - 1)];
-  return fullName;
-};
-
-var getRandomValue = function (arr) {
-  return arr[getRandomNumber(0, arr.length - 1)];
-};
-
 var combineWizardsData = function () {
   for (var i = 0; i < WIZARDS_MUMBER; i++) {
     wizardsFullData[i] = {};
-    wizardsFullData[i].name = getFullName(wizardsNames, wizardsSurnames);
-    wizardsFullData[i].coatColor = getRandomValue(wizardsCoatsColors);
-    wizardsFullData[i].eyesColor = getRandomValue(wizardsEyesColors);
+    wizardsFullData[i].name = window.util.getFullName(wizardsNames, wizardsSurnames);
+    wizardsFullData[i].coatColor = window.util.getRandomValue(wizardsCoatsColors);
+    wizardsFullData[i].eyesColor = window.util.getRandomValue(wizardsEyesColors);
   }
 };
 
@@ -128,7 +113,7 @@ var onSetupEscPress = function (evt) {
 };
 
 var changeWizardElementColor = function (element, input, elementColors) {
-  var randomColor = getRandomValue(elementColors);
+  var randomColor = window.util.getRandomValue(elementColors);
 
   switch (element.tagName) {
     case 'use':
