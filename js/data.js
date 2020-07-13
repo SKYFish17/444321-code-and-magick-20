@@ -68,6 +68,8 @@
     }
   };
 
+  generateWizardsData();
+
   //  создаёт нового персонажа
   var createWizardItem = function (index) {
     var newWizard = similarWizardTemplate.cloneNode(true);
