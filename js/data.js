@@ -6,7 +6,7 @@
   var setupSimilarList = setupSimilar.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('div');
 
-  var WIZARDS_MUMBER = 4;
+  var WIZARDS_NUMBER = 4;
 
   var wizardsNames = [
     'Иван',
@@ -60,7 +60,7 @@
 
   // генерация массива с данными персонажей
   var generateWizardsData = function () {
-    for (var i = 0; i < WIZARDS_MUMBER; i++) {
+    for (var i = 0; i < WIZARDS_NUMBER; i++) {
       wizardsFullData[i] = {};
       wizardsFullData[i].name = window.util.getFullName(wizardsNames, wizardsSurnames);
       wizardsFullData[i].coatColor = window.util.getRandomValue(wizardsCoatsColors);
