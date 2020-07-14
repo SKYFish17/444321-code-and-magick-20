@@ -14,6 +14,8 @@
   var closeSetup = function () {
     setupWindow.classList.add('hidden');
     document.removeEventListener('keydown', onSetupEscPress);
+
+    window.move.resetSetupPosition();
   };
 
   var onSetupEscPress = function (evt) {
