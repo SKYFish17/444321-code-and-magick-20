@@ -2,14 +2,21 @@
 
 (function () {
   var load = function (onLoad, onError) {
+    var StatusCode = {
+      OK: 200
+    };
+
+    var TIMEOUT_IN_MS = 10000;
+
     var URL = 'https://javascript.pages.academy/code-and-magick/data';
+
 
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === StatusCode.OK) {
         onLoad(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -24,7 +31,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = TIMEOUT_IN_MS;
 
     xhr.open('GET', URL);
     xhr.send();

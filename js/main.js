@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  /*
   var onLoad = function (data) {
     console.log(data);
   };
@@ -10,4 +11,5 @@
   };
 
   window.backend.load(onLoad, onError);
+  */
 })();
